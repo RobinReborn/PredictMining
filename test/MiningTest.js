@@ -33,27 +33,27 @@ contract("Mining", accounts => {
             });
 		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
             });
-		account0balance = parseInt(web3.utils.fromWei(account0balance, 'ether'));
-		account1balance = parseInt(web3.utils.fromWei(account1balance, 'ether'));
+		account0balance = parseInt(web3.utils.fromWei(account0balance, 'lovelace'));
+		account1balance = parseInt(web3.utils.fromWei(account1balance, 'lovelace'));
 		var contractBalance = await web3.eth.getBalance(myMining.address);
 		assert.isAbove(account1balance,account0balance,"account 0 has not had ether taken from it");
 		assert.isAbove(parseInt(contractBalance), 0, "contract has not had ether transfered to it");
 	})
 	it("prediction should return ether when difficulty guess is exactly right", async() => {
 		const myMining = await Mining.deployed();
+		balancebefore = await web3.eth.getBalance(accounts[0], function(err,res) {
+          });
+
 		await myMining.evaluatePredictions(1546885009,0);
-		account0balance = await web3.eth.getBalance(accounts[0], function(err,res) {
-            });
-		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
-            });
+		balanceafter = await web3.eth.getBalance(accounts[0], function(err,res) {
+          });
 
-		account0balance = parseInt(web3.utils.fromWei(account0balance, 'ether'));
-		account1balance = parseInt(web3.utils.fromWei(account1balance, 'ether'));
-		console.log(account0balance);
-		console.log(account1balance);
-		console.log(accounts[0]);
+		balanceafter = parseInt(web3.utils.fromWei(balanceafter, 'lovelace'));
+		balancebefore = parseInt(web3.utils.fromWei(balancebefore, 'lovelace'));
+		console.log(balancebefore);
+		console.log(balanceafter);
 
-		assert.equal(account1balance,account0balance,"balances are not equal!");
+		assert.isAbove(balancebefore,balanceafter,"balances are not equal!");
 
 	})
 })
