@@ -6,7 +6,7 @@ class ReadDifficulty extends React.Component {
   componentWillMount() {
     const { drizzle } = this.props;
     const contract = drizzle.contracts.Mining;
-    const dataKey = contract.methods["getDifficult"].cacheSend();
+    const dataKey = contract.methods["getDifficulty"].cacheSend();
     this.setState({dataKey});
 
     // subscribe to changes in the store
@@ -22,7 +22,7 @@ class ReadDifficulty extends React.Component {
     //const myString = Mining.methods[this.state.dataKey];
 
     // if it exists, then we display its value
-    return <p>My stored string: {this.state.dataKey}</p>;
+    return <p>Current Difficulty: {this.state.dataKey}</p>;
   }
 
 

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ReadDifficulty from "./ReadDifficulty"
-import ReadString from "./ReadString";
-import SetString from "./SetString";
-
+import ReadDifficulty from "./ReadDifficulty";
+import SetPrediction from "./SetPrediction";
 class App extends Component {
   state = { loading: true, drizzleState: null };
   
@@ -32,11 +30,12 @@ render() {
   return (
 
     <div className="App">
-      <ReadString
+
+            <ReadDifficulty
         drizzle={this.props.drizzle}
         drizzleState={this.state.drizzleState}
       />
-            <ReadDifficulty
+      <SetPrediction
         drizzle={this.props.drizzle}
         drizzleState={this.state.drizzleState}
       />

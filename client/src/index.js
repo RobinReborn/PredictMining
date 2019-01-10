@@ -8,10 +8,9 @@ import ReadDifficulty from "./ReadDifficulty";
 
 import { Drizzle, generateStore } from "drizzle";
 import Mining from "./contracts/Mining.json";
-import MyStringStore from "./contracts/MyStringStore.json";
 
 // let drizzle know what contracts we want
-const options = { contracts: [MyStringStore,Mining] };
+const options = { contracts: [Mining] };
 
 // setup the drizzle store and drizzle
 const drizzleStore = generateStore(options);
