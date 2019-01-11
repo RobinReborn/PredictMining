@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import ReadDifficulty from "./ReadDifficulty";
 
 import { Drizzle, generateStore } from "drizzle";
 import Mining from "./contracts/Mining.json";

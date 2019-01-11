@@ -1,6 +1,8 @@
 pragma solidity ^0.4.24;
 
 contract Mining{
+	function() external payable { }
+
 	struct Prediction {
 		address predicter;
 		uint amount;

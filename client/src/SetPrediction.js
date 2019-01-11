@@ -22,7 +22,8 @@ class SetPrediction extends React.Component {
 
 handleSubmit() {
 	var con = this.props.drizzle.contracts.Mining
-	con.methods.setPrediction.cacheSend(this.state.date,this.state.difficulty,this.state.above);
+	con.methods.setPrediction.cacheSend(this.state.date,this.state.difficulty,this.state.above,
+		{value: this.state.ether});
 }
 	/*handlepredictionDateChange: function(e) {
 		this.setState({date: e.target.value});
@@ -52,8 +53,8 @@ handleSubmit() {
 		<label>Below</label>
 		<input type='radio' valule='Below' name='predictionAbove' onChange={e =>this.handleChange(e)}></input>
 		<br/>
-		<label>Ether</label>
-		<input type='number' value={this.state.predictionEther} onChange={e =>this.handleChange(e)}></input>
+		<label>Wei</label>
+		<input type='number' name='ether' value={this.state.predictionEther} onChange={e =>this.handleChange(e)}></input>
 		<button onClick={this.handleSubmit}>Submit Prediction</button>
 		</div>)
 	}
