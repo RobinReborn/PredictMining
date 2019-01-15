@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import HomeContainer from './HomeContainer';
+import { Route } from 'react-router'
+
 import ReadDifficulty from "./ReadDifficulty";
 import SetPrediction from "./SetPrediction";
 class App extends Component {
-  state = { loading: true, drizzleState: null };
-  
-  componentDidMount() {
+  /*state = { loading: true, drizzleState: null };
+  const mapStateToProps = state => {
+  return {
+    drizzleStatus: state.drizzleStatus,
+    SimpleStorage: state.contracts.SimpleStorage
+  }
+}
+
+  componentWillMount() {
     const { drizzle } = this.props;
 
     // subscribe to changes in the store
@@ -23,22 +32,23 @@ class App extends Component {
 componentWillUnmount() {
   this.unsubscribe();
 }
-
+*/
 render() {
-    if (this.state.loading) return "Loading Drizzle...";
-
+/*    if (this.state.loading) return "Loading Drizzle...";
+*/
   return (
 
     <div className="App">
+        <Route exact path="/" component={HomeContainer}/>
 
-            <ReadDifficulty
+           {/* <ReadDifficulty
         drizzle={this.props.drizzle}
         drizzleState={this.state.drizzleState}
       />
       <SetPrediction
         drizzle={this.props.drizzle}
         drizzleState={this.state.drizzleState}
-      />
+      />*/}
     </div>
   );
 }

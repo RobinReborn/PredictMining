@@ -9,11 +9,6 @@ class SetPrediction extends React.Component {
 
 
   }
-
-	//this could be set to autopopulate current date or date in near future and current difficulty
-	/*function makePrediction(){
-		myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 2000000});
-	}*/
 	  handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -25,12 +20,6 @@ handleSubmit() {
 	con.methods.setPrediction.cacheSend(this.state.date,this.state.difficulty,this.state.above,
 		{value: this.state.ether});
 }
-	/*handlepredictionDateChange: function(e) {
-		this.setState({date: e.target.value});
-	},
-	handlepredictionDifficulty: function(e) {
-		this.setState({difficulty: e.target.value});
-	},*/
 	ComponentDidMount(){
 	    const { drizzle } = this.props;
 	    const contract = drizzle.contracts.Mining;
