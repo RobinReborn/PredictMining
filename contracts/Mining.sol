@@ -17,12 +17,17 @@ contract Mining{
 	mapping(address => UserPredictions) public predictionAddress;
 	mapping(uint => UserPredictions) public predictionsAtTime;
 	Prediction[] public predictionArray;
+	uint public predictionArrayLength;
+
+	uint public difficulty;
 	function getDifficulty() public returns(uint){
-		return block.difficulty;
+		difficulty = block.difficulty;
+		return difficulty;
 	}
 	function setPrediction(uint date, uint difficulty, bool above) public payable{
 		Prediction memory prediction = Prediction(msg.sender,msg.value,difficulty,above,date);
 		predictionArray.push(prediction);
+		predictionArrayLength++;
 		predictionAddress[msg.sender].predictions.push(prediction);
 		predictionAddress[msg.sender].length++;
 		predictionsAtTime[date].predictions.push(prediction);

@@ -1,19 +1,14 @@
 import React, { Component } from 'react'
-import { AccountData, ContractData, ContractForm } from 'drizzle-react-components'
-
+import { AccountData, ContractData } from 'drizzle-react-components'
+import SetPrediction from "./SetPrediction";
+import ContractForm from "./ContractForm"
 
 class Home extends Component {
+
   render() {
     return (
       <main className="container">
         <div className="pure-g">
-          <div className="pure-u-1-1 header">
-            <h1>Drizzle Examples</h1>
-            <p>Examples of how to get started with Drizzle in various situations.</p>
-
-            <br/><br/>
-          </div>
-
           <div className="pure-u-1-1">
             <h2>Active Account</h2>
             <AccountData accountIndex="0" units="ether" precision="3" />
@@ -22,10 +17,11 @@ class Home extends Component {
           </div>
 
           <div className="pure-u-1-1">
-            <h2>SimpleStorage</h2>
-            <p>This shows a simple ContractData component with no arguments, along with a form to set its value.</p>
-            <p><strong>Stored Value</strong>: <ContractData contract="Mining" method="predictionAddress" /></p>
-            <ContractForm contract="Mining" method="setPrediction" />
+            <h2>Difficulty</h2>
+            <p>This shows current mining difficulty</p>
+            <ContractForm contract="Mining" method="getDifficulty"  methodArgs={"0"}/>
+            <p><ContractData contract="Mining" method="predictionArray" methodArgs={[0]}/></p>
+            <ContractForm contract="Mining" method="setPrediction" valueLabel="valueLabel"/>
 
             <br/><br/>
           </div>

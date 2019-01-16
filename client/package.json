@@ -6,7 +6,10 @@
     "drizzle": "^1.2.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "2.1.2"
+    "react-router": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "react-scripts": "2.1.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,5 +25,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "drizzle-react-components": "github:trufflesuite/drizzle-react-components#pull/28/head"
+  }
 }
