@@ -54,11 +54,11 @@ contract Mining{
 		uint correctWagers;
 		uint[] storage correctWagersValues;
 		for (uint i = 0; i < predictionsToCheck.length; i++){
-			//this can be changed to block.difficults in other context, like when not testing
+			//this can be changed to block.difficulty in other context, like when not testing
 			if (difficulty == predictionsToCheck.predictions[i].difficultyPrediction){
 				address refunder = predictionsToCheck.predictions[i].predicter;
-				refunder.transfer(predictionsToCheck.predictions[i].amount);
-				Refund(refunder, predictionsToCheck.predictions[i].amount);
+				refunder.send(predictionsToCheck.predictions[i].amount);
+				emit Refund(refunder, predictionsToCheck.predictions[i].amount);
 			}
 			else if (((block.difficulty >= predictionsToCheck.predictions[i].difficultyPrediction) && predictionsToCheck.predictions[i].above == true) || 
 		((block.difficulty <= predictionsToCheck.predictions[i].difficultyPrediction) && predictionsToCheck.predictions[i].above == false)) {

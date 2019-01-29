@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "drizzle": "^1.2.4",
+    "drizzle-react": "^1.2.0",
+    "drizzle-react-components": "^1.2.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router": "^4.3.1",
@@ -25,8 +27,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "drizzle-react-components": "github:trufflesuite/drizzle-react-components#pull/28/head"
-  }
+  ]
 }

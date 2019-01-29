@@ -26,8 +26,8 @@ class ContractForm extends Component {
         if (abi[i].name === this.props.method) {
             this.inputs = abi[i].inputs;
 
-            for (var i = 0; i < this.inputs.length; i++) {
-                initialState[this.inputs[i].name] = '';
+            for (var j = 0; j < this.inputs.length; j++) {
+                initialState[this.inputs[j].name] = '';
             }
 
             break;
@@ -38,13 +38,20 @@ class ContractForm extends Component {
   }
 
   handleSubmit() {
-    let args;
-
+    let args = 0;
+    var date = this.state.date;
     if (this.state.valueLabel) {
       args = this.state.valueLabel;
       delete this.state.valueLabel;
     }
+    if (this.state.date) {  
+      this.state.date = new Date(date).getTime()/1000;
+    }
+    if (this.props.sendArgs) {
+      return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), 
+        {value: args,gas:100000});
 
+    }
     this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), {value: args});
   }
 
@@ -52,8 +59,10 @@ class ContractForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  translateType(type) {
+  translateType(type,name) {
     switch(true) {
+        case name == 'date':
+            return 'date'
         case /^uint/.test(type):
             return 'number'
         case /^string/.test(type) || /^bytes/.test(type):
@@ -70,7 +79,7 @@ class ContractForm extends Component {
     return (
       <form className="pure-form pure-form-stacked">
         {this.inputs.map((input, index) => {            
-            var inputType = this.translateType(input.type)
+            var inputType = this.translateType(input.type,input.name)
             var inputLabel = this.props.labels ? this.props.labels[index] : input.name
             // check if input type is struct and if so loop out struct fields as well
             return (<input key={input.name} type={inputType} name={input.name} value={this.state[input.name]} placeholder={inputLabel} onChange={this.handleInputChange} />)
