@@ -56,5 +56,25 @@ contract("Mining", accounts => {
 		assert.isAbove(balancebefore,balanceafter,"balances are not equal!");
 
 	})
+	it("ether from incorrect account should flow into correct account", async() => {
+		const myMining = await Mining.deployed();
+
+		await myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 200000});
+		await myMining.setPrediction(1546885009,2,true , {from: accounts[1], value: 200000});
+		await myMining.evaluatePredictions(1546885009,5);
+		account0balance = await web3.eth.getBalance(accounts[0], function(err,res) {
+            });
+		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
+            });
+		account0balance = parseInt(web3.utils.fromWei(account0balance, 'lovelace'));
+		account1balance = parseInt(web3.utils.fromWei(account1balance, 'lovelace'));
+
+		console.log(account0balance);
+		console.log(account1balance);
+		assert.isAbove(account1balance,account0balance,"account 0 has not transfered ether to account 1");
+
+
+
+	})
 })
 
