@@ -1,5 +1,4 @@
 pragma solidity ^0.4.24;
-import "./SafeMath.sol" as SafeMath;
 contract Mining{
 /*	using SafeMath for uint256;
 */	function() external payable {
