@@ -53,6 +53,14 @@ class ContractForm extends Component {
 
     }
     this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), {value: args});
+     const Http = new XMLHttpRequest();
+    const url='http://127.0.0.1:3001';
+    Http.open("POST", url,true);
+    Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    Http.send("date="+this.state.date);
+    Http.onreadystatechange = function() {
+      console.log("post sent")
+    }
   }
 
   handleInputChange(event) {

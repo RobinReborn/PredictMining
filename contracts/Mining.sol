@@ -46,7 +46,11 @@ contract Mining{
 	}
 	event Refund(address refundAddress, uint amount);
 	event SendEther(address sendAddress, uint amount);
-	function evaluatePredictions(uint time, uint difficulty) public{
+	function evaluatePredictions(uint time) public{
+		simulateEvaluatePredictions(time, block.difficulty);
+	}
+
+	function simulateEvaluatePredictions(uint time, uint difficulty) public{
 		
 		//update to find correct prediction at time
 		UserPredictions storage predictionsToCheck = predictionsAtTime[time];

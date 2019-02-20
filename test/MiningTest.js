@@ -44,7 +44,7 @@ contract("Mining", accounts => {
 		balancebefore = await web3.eth.getBalance(accounts[0], function(err,res) {
           });
 
-		await myMining.evaluatePredictions(1546885009,0);
+		await myMining.simulateEvaluatePredictions(1546885009,0);
 		balanceafter = await web3.eth.getBalance(accounts[0], function(err,res) {
           });
 
@@ -61,7 +61,7 @@ contract("Mining", accounts => {
 
 		await myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 200000});
 		await myMining.setPrediction(1546885009,2,true , {from: accounts[1], value: 200000});
-		await myMining.evaluatePredictions(1546885009,5);
+		await myMining.simulateEvaluatePredictions(1546885009,5);
 		account0balance = await web3.eth.getBalance(accounts[0], function(err,res) {
             });
 		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
