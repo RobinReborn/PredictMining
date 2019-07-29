@@ -13,17 +13,6 @@ class Home extends Component {
 }
 
 
-/*  componentWillMount() {
-    var predictionArray = [];
-   this.getPredictionArray = () => {
-    const predictionArrayLength = parseInt(this.props.store.getState().contracts.Mining.predictionArrayLength['0x0'].value);
-    for (var i = 0; i < this.dataKey; i++){
-      predictionArray.push(<ContractForm contract ='Mining' method='predictionArray' methodArgs={[i]}/>);
-    }
-    return predictionArray;
-
-  }
-}*/
   render() {
     var predictionArray = [];
     if (!(this.dataKey in this.props.Mining.predictionArrayLength)) {

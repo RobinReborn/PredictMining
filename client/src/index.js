@@ -39,7 +39,6 @@ const drizzleStore = generateStore(options);
 const drizzle = new Drizzle(options, drizzleStore);
 
 
-//ReactDOM.render(<App drizzle={drizzle} />, document.getElementById("root"));*/}
 
 ReactDOM.render((
     <DrizzleProvider options={drizzleOptions} store={store}>

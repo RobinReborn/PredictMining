@@ -11179,12 +11179,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xD0737d7Bf84e6dcF0341B818B8c7A762A3ED8cAA",
-      "transactionHash": "0x987282782cd704366ac11fdc6e5ca86435cd5ac8ec477623abfa6365e806378a"
+      "address": "0x6332E86505B661f4CD7315D61B6a3d9aB57BDc80",
+      "transactionHash": "0xe1aa4bc456f3bde92a780f2559b4f565876a60ffca16a2cef036de2183a915b3"
     }
   },
-  "schemaVersion": "3.0.1",
-  "updatedAt": "2019-07-29T17:40:28.853Z",
+  "schemaVersion": "3.0.11",
+  "updatedAt": "2019-07-29T20:23:37.079Z",
   "devdoc": {
     "methods": {}
   },

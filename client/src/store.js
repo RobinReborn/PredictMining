@@ -6,29 +6,8 @@ import reducer from './reducer'
 import rootSaga from './rootSaga'
 import createSagaMiddleware from 'redux-saga'
 import { generateContractsInitialState } from 'drizzle'
-//import drizzleOptions from './drizzleOptions'
-import Mining from "./contracts/Mining.json"
+import drizzleOptions from './drizzleOptions'
 
-
-const drizzleOptions = {
-  web3: {
-    block: false,
-    fallback: {
-      type: 'ws',
-      url: 'ws://127.0.0.1:8545'
-    }
-  },
-  contracts: [
-    Mining
-  ],
-  events: {
-    Mining: ['Refund']
-  },
-  polls: {
-    accounts: 1500
-  },
-    syncAlways: true
-}
 
 // Redux DevTools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
