@@ -1,11 +1,11 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.10;
 contract Mining{
 /*	using SafeMath for uint256;
 */	function() external payable {
 	 }
 
 	struct Prediction {
-		address predicter;
+		address payable predicter;
 		uint amount;
 		uint difficultyPrediction;
 		bool above;
@@ -58,21 +58,21 @@ contract Mining{
 
 		uint incorrectSum=0;
 		uint correctSum=0;
-		address[] storage correctAddresses;
+		address payable[] memory correctAddresses = new address payable[](predictionsToCheck.length);
 		uint correctWagers;
-		uint[] storage correctWagersValues;
+		uint[] memory correctWagersValues = new uint[](predictionsToCheck.length);
 		for (uint i = 0; i < predictionsToCheck.length; i++){
 			//this can be changed to block.difficulty in other context, like when not testing
 			if (difficulty == predictionsToCheck.predictions[i].difficultyPrediction){
-				address refunder = predictionsToCheck.predictions[i].predicter;
+				address payable refunder = predictionsToCheck.predictions[i].predicter;
 				refunder.transfer(predictionsToCheck.predictions[i].amount);
 				emit Refund(refunder, predictionsToCheck.predictions[i].amount);
 			}
 			else if (((difficulty >= predictionsToCheck.predictions[i].difficultyPrediction) && predictionsToCheck.predictions[i].above == true) || 
 		((difficulty <= predictionsToCheck.predictions[i].difficultyPrediction) && predictionsToCheck.predictions[i].above == false)) {
 				correctSum = correctSum + predictionsToCheck.predictions[i].amount;
-				correctAddresses.push(predictionsToCheck.predictions[i].predicter);
-				correctWagersValues.push(predictionsToCheck.predictions[i].amount);
+				correctAddresses[i] = predictionsToCheck.predictions[i].predicter;
+				correctWagersValues[i] = predictionsToCheck.predictions[i].amount;
 				correctWagers++;
 			}
 			else {
@@ -83,7 +83,7 @@ contract Mining{
 			uint winningValue = predictionsToCheck.sum/incorrectSum*correctWagersValues[j];
 			emit SendEther(correctAddresses[j], winningValue);
 
-			correctAddresses[j].send(winningValue);
+			correctAddresses[j].transfer(winningValue);
 		}
 	}
 }

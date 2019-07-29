@@ -1,0 +1,28 @@
+{
+  "name": "predictmining",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "solc": "^0.5.10",
+    "truffle": "^5.0.29"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha",
+    "start": "react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinReborn/PredictMining.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobinReborn/PredictMining/issues"
+  },
+  "homepage": "https://github.com/RobinReborn/PredictMining#readme"
+}
