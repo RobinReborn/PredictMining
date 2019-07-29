@@ -7,22 +7,37 @@ import PropTypes from 'prop-types'
 class Home extends Component {
   constructor(props, context) {
   super(props)
-
   this.contracts = context.drizzle.contracts
   this.dataKey= this.contracts.Mining.methods.predictionArrayLength.cacheCall();
+  this.show = this.show.bind(this);
+  this.state = {predictionShow: []}
 }
 
+show = (index) =>  {
+  let showValue = this.state.predictionShow
+  showValue[index] = showValue[index] == 'block' ? 'none' : 'block' 
+  this.setState({predictionShow: showValue})
+  console.log(index, showValue[index])
+}
 
   render() {
     var predictionArray = [];
+    let showArray = []
     if (!(this.dataKey in this.props.Mining.predictionArrayLength)) {
       predictionArray.push('<p>Loading... </p>')
     }
     else {
-    for (var i = 0; i < this.props.Mining.predictionArrayLength[this.dataKey].value; i++){
-      predictionArray.push(<ContractData contract ='Mining' method='predictionArray' methodArgs={[i]}/>);
+      
+      for (let i = 0; i < this.props.Mining.predictionArrayLength[this.dataKey].value; i++){
+        showArray.push('block')
+        predictionArray.push(<div><div onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i]}} >
+          <ContractData contract='Mining' method='predictionArray' methodArgs={[i]}/>
+          </div><button onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i] == 'none' ? 'block' : 'none' }}>Show</button></div>);
+        
+      }
+      
     }
-  }
+    //this.setState({predictionShow:showArray})
     return (
       <main className="container">
         <div className="pure-g">
@@ -39,8 +54,7 @@ class Home extends Component {
             <ContractData contract="Mining" method="difficulty"/>
             <p>this is current prediction array length</p>
             <ContractData contract="Mining" method="predictionArrayLength"/>
-            <p>{predictionArray}</p>
-            <ContractData contract="Mining" method="predictionArray" methodArgs={[0]}/>
+            <div id='predictionHolder'>{predictionArray}</div>
             <ContractForm contract="Mining" method="setPrediction" valueLabel="valueLabel"/>
 
             <br/><br/>

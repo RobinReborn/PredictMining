@@ -102,10 +102,6 @@ ContractForm.contextTypes = {
   drizzle: PropTypes.object
 }
 
-/*
- * Export connected component.
- */
-
 const mapStateToProps = state => {
   return {
     contracts: state.contracts
