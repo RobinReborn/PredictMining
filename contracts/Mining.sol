@@ -23,9 +23,10 @@ contract Mining{
 
 	uint public difficulty;
 	function getDifficulty() public returns(uint){
-		difficulty = block.difficulty;
+		uint difficulty = block.difficulty;
 		return difficulty;
 	}
+	event predictionMade(uint date);
 	function setPrediction(uint date, uint difficulty, bool above) public payable{
 		Prediction memory prediction = Prediction(msg.sender,msg.value,difficulty,above,date);
 		predictionArray.push(prediction);
@@ -35,6 +36,7 @@ contract Mining{
 		predictionsAtTime[date].predictions.push(prediction);
 		predictionsAtTime[date].length++;
 		predictionsAtTime[date].sum = predictionsAtTime[date].sum + msg.value;
+		emit predictionMade(date);
 	}
 	function getPredictionFromAddress() internal returns (UserPredictions memory){
 		return predictionAddress[msg.sender];

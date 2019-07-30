@@ -1,4 +1,6 @@
 const Mining = artifacts.require("../contracts/Mining.sol");
+const truffleAssert = require('truffle-assertions');
+var utils = require("./utils.js");
 
 contract("Mining", accounts => {
 	it("Difficulty should be a number", async () => {
@@ -9,13 +11,15 @@ contract("Mining", accounts => {
 	})
 	it("set Prediction should create a prediction", async () => {
 		const myMining = await Mining.deployed();
-		await myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 2000000});
+		let tx = await myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 2000000});
 		let prediction =  await myMining.getPredictionFromAddressExternal.call(0,accounts[0]);
 		assert.equal(prediction[0], accounts[0], "address is not set correctly");
 		assert.equal(prediction[1].toNumber(), 2000000, "amount is not set correctly");
 		assert.equal(prediction[2], 0, "difficulty is not set correctly");
 		assert.equal(prediction[3], false, "direction is not set correctly");
 		assert.equal(prediction[4], 1546885009, "time is not set correctly");
+		truffleAssert.eventEmitted(tx, "predictionMade")
+		//truffleAssert.eventEmitted(myMining, 'TestEvent', (ev) => {return ev.date === 1546885009});
 	})
 	it("prediction should be added to array", async() => {
 		const myMining = await Mining.deployed();
