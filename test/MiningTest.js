@@ -19,7 +19,6 @@ contract("Mining", accounts => {
 		assert.equal(prediction[3], false, "direction is not set correctly");
 		assert.equal(prediction[4], 1546885009, "time is not set correctly");
 		truffleAssert.eventEmitted(tx, "predictionMade")
-		//truffleAssert.eventEmitted(myMining, 'TestEvent', (ev) => {return ev.date === 1546885009});
 	})
 	it("prediction should be added to array", async() => {
 		const myMining = await Mining.deployed();

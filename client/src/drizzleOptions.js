@@ -1,4 +1,5 @@
-import Mining from "./contracts/Mining.json"
+import Mining from "./contracts/Mining.json";
+export const options = { contracts: [Mining] };
 
 const drizzleOptions = {
   web3: {
@@ -16,7 +17,7 @@ const drizzleOptions = {
   },
   polls: {
     accounts: 1500
-  }
+  },
+  syncAlways: true
 }
-
-export default drizzleOptions
+export default drizzleOptions;

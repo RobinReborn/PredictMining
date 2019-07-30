@@ -6,7 +6,7 @@ import reducer from './reducer'
 import rootSaga from './rootSaga'
 import createSagaMiddleware from 'redux-saga'
 import { generateContractsInitialState } from 'drizzle'
-import drizzleOptions from './drizzleOptions'
+import drizzleOptions from '../drizzleOptions'
 
 
 // Redux DevTools
