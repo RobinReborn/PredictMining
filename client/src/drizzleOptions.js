@@ -13,7 +13,7 @@ const drizzleOptions = {
     Mining
   ],
   events: {
-    Mining: ['Refund']
+    Mining: ['Refund','predictionMade']
   },
   polls: {
     accounts: 1500

@@ -9,7 +9,6 @@ const contractEventNotifier = store => next => action => {
     const contractEvent = action.event.event
     const message = action.event.returnValues._message
     const display = `${contract}(${contractEvent}): ${message}`
-
     console.log(display);
   }
   return next(action)
@@ -26,8 +25,7 @@ const store = generateStore({
   initialState,
   drizzleOptions,
   appMiddlewares,
-  disableReduxDevTools: false  // enable ReduxDevTools!
+  disableReduxDevTools: false
 })
 
-// Use the store with DrizzleProvider
 export default store

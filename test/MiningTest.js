@@ -1,6 +1,5 @@
 const Mining = artifacts.require("../contracts/Mining.sol");
 const truffleAssert = require('truffle-assertions');
-var utils = require("./utils.js");
 
 contract("Mining", accounts => {
 	it("Difficulty should be a number", async () => {
@@ -31,7 +30,7 @@ contract("Mining", accounts => {
 	})
 	it("account should have less ether", async() => {
 		const myMining = await Mining.deployed();
-		let account0Balance, account1Balance;
+		let account0Balance, account1Balance, account2Balance;
 		account0balance = await web3.eth.getBalance(accounts[0], function(err,res) {
             });
 		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
@@ -53,8 +52,6 @@ contract("Mining", accounts => {
 
 		balanceafter = parseInt(web3.utils.fromWei(balanceafter, 'lovelace'));
 		balancebefore = parseInt(web3.utils.fromWei(balancebefore, 'lovelace'));
-		console.log(balancebefore);
-		console.log(balanceafter);
 
 		assert.isAbove(balancebefore,balanceafter,"balances are not equal!");
 
@@ -64,19 +61,27 @@ contract("Mining", accounts => {
 
 		await myMining.setPrediction(1546885009,0,false , {from: accounts[0], value: 200000});
 		await myMining.setPrediction(1546885009,2,true , {from: accounts[1], value: 200000});
+		const receipt = await myMining.setPrediction(1546885009,5,true , {from: accounts[2], value: 200000});
+		const gasUsed = receipt.receipt.gasUsed
+		const tx = await web3.eth.getTransaction(receipt.tx);
+    	const gasPrice = tx.gasPrice;
+
+		let account2balanceBefore = await web3.eth.getBalance(accounts[2], function(err,res) {});
+		account2balanceBefore = parseInt(web3.utils.fromWei(account2balanceBefore, 'lovelace'));
+
 		await myMining.simulateEvaluatePredictions(1546885009,5);
 		account0balance = await web3.eth.getBalance(accounts[0], function(err,res) {
             });
 		account1balance = await web3.eth.getBalance(accounts[1], function(err,res) {
             });
+		account2balance = await web3.eth.getBalance(accounts[2], function(err,res) {});
 		account0balance = parseInt(web3.utils.fromWei(account0balance, 'lovelace'));
 		account1balance = parseInt(web3.utils.fromWei(account1balance, 'lovelace'));
-
-		console.log(account0balance);
-		console.log(account1balance);
+		account2balance = parseInt(web3.utils.fromWei(account2balance, 'lovelace'));
+		account2balance = account2balance;
 		assert.isAbove(account1balance,account0balance,"account 0 has not transfered ether to account 1");
-
-
+		assert.equal(account2balanceBefore,account2balance,"account 2 balance should be same before and after evaluation")
+		assert.equal(account1balance-account0balance,0,"difference between winning and losing account should be zero")
 
 	})
 })

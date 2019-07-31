@@ -42,7 +42,7 @@ class ContractForm extends Component {
       delete this.state.valueLabel;
     }
     if (this.state.date) {  
-      this.state.date = new Date(date).getTime()/1000;
+      this.stateState({date : new Date(date).getTime()/1000});
     }
     if (this.props.sendArgs) {
       return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), 
@@ -54,10 +54,7 @@ class ContractForm extends Component {
     const url='http://127.0.0.1:3001';
     Http.open("POST", url,true);
     Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    Http.send("date="+this.state.date);
-    Http.onreadystatechange = function() {
-      console.log("post sent")
-    }
+    //Http.send("date="+this.state.date);
   }
 
   handleInputChange(event) {
