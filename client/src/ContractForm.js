@@ -36,29 +36,47 @@ class ContractForm extends Component {
 
   handleSubmit() {
     let args = 0;
-    var date = this.state.date;
     if (this.state.valueLabel) {
       args = this.state.valueLabel;
       delete this.state.valueLabel;
     }
-    if (this.state.date) {  
-      this.stateState({date : new Date(date).getTime()/1000});
+    if (this.state.date){
+      var unixDate = new Date(this.state.date).getTime()
+      this.setState({date: unixDate}, () => {
+        if (this.props.sendArgs) {
+          return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), 
+          {value: args,gas:100000});
+        }
+      this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), {value: args});
+
+      })
     }
+    else{
     if (this.props.sendArgs) {
       return this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), 
         {value: args,gas:100000});
-
     }
     this.contracts[this.props.contract].methods[this.props.method].cacheSend(...Object.values(this.state), {value: args});
-     const Http = new XMLHttpRequest();
+    /* const Http = new XMLHttpRequest();
     const url='http://127.0.0.1:3001';
     Http.open("POST", url,true);
-    Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");*/
     //Http.send("date="+this.state.date);
   }
+}
 
   handleInputChange(event) {
+    console.log(new Date(event.target.value).getTime())
+    /*if (event.target.name = 'date'){
+      var unixDate = new Date(event.target.value).getTime()
+      if (unixDate > 0 ){
+      this.setState({[event.target.name] : unixDate})
+      }
+      else{}
+    }
+    else{*/
     this.setState({ [event.target.name]: event.target.value });
+  //}
   }
 
   translateType(type,name) {
@@ -70,6 +88,7 @@ class ContractForm extends Component {
         case /^string/.test(type) || /^bytes/.test(type):
             return 'text'
         case /^bool/.test(type):
+          //style this
             return 'checkbox'
         default:
             return 'text'
@@ -84,6 +103,11 @@ class ContractForm extends Component {
             var inputType = this.translateType(input.type,input.name)
             var inputLabel = this.props.labels ? this.props.labels[index] : input.name
             // check if input type is struct and if so loop out struct fields as well
+            if (inputType == 'date'){
+              return (
+                <input key={input.name} type={inputType} name={input.name} min="2000-01-01"
+                value={this.state[input.name]}/*{new Date(this.state[input.name]).toLocaleDateString("en-US")}*/ placeholder={inputLabel} onChange={this.handleInputChange} />)
+            }
             return (<input key={input.name} type={inputType} name={input.name} value={this.state[input.name]} placeholder={inputLabel} onChange={this.handleInputChange} />)
         })}
         {valueLabel &&

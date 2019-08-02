@@ -8,21 +8,23 @@ class Home extends Component {
   super(props)
   this.contracts = context.drizzle.contracts
   this.dataKey = this.contracts.Mining.methods.predictionArrayLength.cacheCall();
-  //this.arrayDataKey = this.contracts.Mining.methods.predictionArray.cacheCall(0);
   this.show = this.show.bind(this);
   this.checkPositions = this.checkPositions.bind(this)
-  this.state = {predictionShow: [], maxBelow: 0, minAbove : 0};
-
+  this.state = {predictionShow: [], maxBelow: [0,0,0,0,0], minAbove : [0,0,0,0,0]};
+  let arrayVals = []
+  for (let i in this.props.Mining.predictionArray ){
+        arrayVals.push(this.props.Mining.predictionArray[i])
+      }
+      this.checkPositions(arrayVals)    
 }
 
 checkPositions(array) {
-  console.log(array)
   for (let i = 0; i < array.length; i++){
-    if (array[i].value[2] > this.state.maxBelow && array[i].value[3]===false){
-      this.setState({maxBelow: array[i].value[2]})
+    if (array[i].value[2] > this.state.maxBelow[0] && array[i].value[3]===false){
+      this.setState({maxBelow: [array[i].value[2],array[i].value[1],array[i].value[0],array[i].value[3],array[i].value[4]]})
     }
-    else if (array[i].value[2]< this.state.minAbove && array[i].value[3]===true){
-      this.setState({minAbove: array[i].value[2]})
+    else if (array[i].value[2]< this.state.minAbove[0] && array[i].value[3]===true){
+      this.setState({minAbove: [array[i].value[2],array[i].value[1],array[i].value[0],array[i].value[3],array[i].value[4]]})
     }
   }
 }
@@ -36,7 +38,7 @@ show = (index) =>  {
 
   render() {
     let predictionArray = [];
-    let arrayVals = []
+    
     if (!(this.props.Mining.predictionArray) || !this || !(this.props.Mining.predictionArrayLength[this.dataKey])) {
       predictionArray.push('<p>Loading... </p>')
     }
@@ -50,15 +52,14 @@ show = (index) =>  {
       
 
       }
-      for (let i in this.props.Mining.predictionArray ){
-        arrayVals.push(this.props.Mining.predictionArray[i])
-      }
-      this.checkPositions(arrayVals)    
+      
     }
     return (
       <main className="container">
         <div className="pure-g">
           <div className="pure-u-1-1">
+              <ContractForm contract="Mining" method="setPrediction" valueLabel="valueLabel"/>
+
             <h2>Active Account</h2>
             <AccountData accountIndex={0} units="ether" precision={3} />
 
@@ -72,12 +73,12 @@ show = (index) =>  {
             <p>this is current prediction array length</p>
             <ContractData contract="Mining" method="predictionArrayLength"/>
             <div id='predictionHolder'>{predictionArray}</div>
-            <ContractForm contract="Mining" method="setPrediction" valueLabel="valueLabel"/>
 
             <br/><br/>
             <ContractData contract="Mining" method="predictionsAtTime" methodArgs={[1355270400]} />
             <ContractForm contract="Mining" method="evaluatePredictions" sendArgs={['gas':10000000000]}/>
-            <div>{this.state.maxBelow}</div>
+            <div>{this.state.maxBelow[0]},{this.state.maxBelow[1]},
+            {this.state.maxBelow[3].toString()},{this.state.maxBelow[4]}</div>
             <div>{this.state.minAbove}</div>
           </div>
 
