@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { AccountData, ContractData } from 'drizzle-react-components'
+import { AccountData } from 'drizzle-react-components'
 import ContractForm from "./ContractForm"
+import ContractData from "./ContractData"
 import PropTypes from 'prop-types'
 
 class Home extends Component {
