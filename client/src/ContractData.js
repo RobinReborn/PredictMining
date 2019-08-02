@@ -113,19 +113,17 @@ class ContractData extends Component {
           var formattedTime = year + " " + month + " " + day
           displayObjectProps.push(
             <li key={i}>
-              <strong>{key}</strong>
+              {key}
               {pendingSpinner}
-              <br />
               {formattedTime}
             </li>,
           );
         }
         else if (i != key) {
           displayObjectProps.push(
-            <li key={i}>
-              <strong>{key}</strong>
+            <li key={i+displayData}>
+              {key}
               {pendingSpinner}
-              <br />
               {`${displayData[key]}`}
             </li>,
           );

@@ -7,7 +7,7 @@ import store from './middleware'
 import drizzleOptions, {options} from './drizzleOptions';
 import { Drizzle, generateStore } from "drizzle";
 import { DrizzleProvider } from 'drizzle-react'
-
+import HomeContainer from './HomeContainer'
 
 // setup the drizzle store and drizzle
 const drizzleStore = generateStore(options);
@@ -17,7 +17,7 @@ const drizzleStore = generateStore(options);
 ReactDOM.render((
     <DrizzleProvider options={drizzleOptions} store={store}>
     <LoadingContainer>
-      <App />       
+      <HomeContainer/>    
     </LoadingContainer> 
     </DrizzleProvider>
   ),

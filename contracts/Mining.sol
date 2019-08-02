@@ -9,7 +9,7 @@ contract Mining{
 		uint amount;
 		uint difficultyPrediction;
 		bool above;
-		uint time;
+		uint date;
 	}
 	struct UserPredictions {
 		Prediction[] predictions;
@@ -44,19 +44,18 @@ contract Mining{
 	function getPredictionFromAddressExternal(uint index, address _address) public returns (address,uint,uint,bool,uint){
 		UserPredictions memory predictionArray = getPredictionFromAddress();
 		Prediction memory prediction = predictionArray.predictions[index];
-		return (prediction.predicter,prediction.amount,prediction.difficultyPrediction,prediction.above,prediction.time);
+		return (prediction.predicter,prediction.amount,prediction.difficultyPrediction,prediction.above,prediction.date);
 	}
 	event Refund(address refundAddress, uint amount);
 	event SendEther(address sendAddress, uint amount);
-	function evaluatePredictions(uint time) public{
-		simulateEvaluatePredictions(time, block.difficulty);
+	function evaluatePredictions(uint date) public{
+		simulateEvaluatePredictions(date, block.difficulty);
 	}
 
-	function simulateEvaluatePredictions(uint time, uint difficulty) public{
+	function simulateEvaluatePredictions(uint date, uint difficulty) public{
 		
 		//update to find correct prediction at time
-		UserPredictions storage predictionsToCheck = predictionsAtTime[time];
-		//require(time == predictionToCheck.time);
+		UserPredictions storage predictionsToCheck = predictionsAtTime[date];
 
 		uint incorrectSum=0;
 		uint correctSum=0;

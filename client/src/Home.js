@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AccountData } from 'drizzle-react-components'
+import AccountData from "./AccountData"
 import ContractForm from "./ContractForm"
 import ContractData from "./ContractData"
 import PropTypes from 'prop-types'
@@ -13,6 +13,7 @@ class Home extends Component {
   this.checkPositions = this.checkPositions.bind(this)
   this.state = {predictionShow: [], maxBelow: [0,0,0,0,0], minAbove : [0,0,0,0,0]};
   let arrayVals = []
+  //this might need to be somewhere else but placing it in render gives console error
   for (let i in this.props.Mining.predictionArray ){
         arrayVals.push(this.props.Mining.predictionArray[i])
       }
@@ -45,10 +46,10 @@ show = (index) =>  {
     }
     else {
       for (let i = 0; i < this.props.Mining.predictionArrayLength[this.dataKey].value; i++) {
-        predictionArray.push(<div><div onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i]}} >
+        predictionArray.push(<div key={i+'outerdiv'} ><div key={i+'innerDiv'}  onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i]}} >
           <ContractData contract='Mining' method='predictionArray' methodArgs={[i]}/>
           </div>
-          <button onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i] === 'none' ? 'block' : 'none' }}>Show</button>
+          <button key={i} onClick={() => this.show(i)} style={{"display": this.state.predictionShow[i] === 'none' ? 'block' : 'none' }}>Show</button>
           </div>);
       
 
@@ -62,7 +63,7 @@ show = (index) =>  {
               <ContractForm contract="Mining" method="setPrediction" valueLabel="valueLabel"/>
 
             <h2>Active Account</h2>
-            <AccountData accountIndex={0} units="ether" precision={3} />
+            <AccountData accountIndex={0} units="ether" precision={3}/>
 
             <br/><br/>
           </div>
