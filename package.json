@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "solc": "^0.5.10",
     "truffle": "^5.0.29",
     "truffle-assertions": "^0.9.1"
